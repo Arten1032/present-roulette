@@ -100,8 +100,15 @@ button{
 
     border-top:35px solid gold;
 
-    filter:drop-shadow(0 0 10px gold);
+    filter:
 
+        drop-shadow(0 0 10px gold)
+
+        drop-shadow(0 0 25px gold);
+
+    animation:pointerGlow 1s infinite alternate;
+
+}
 }#center{
 
     width:90px;
@@ -150,6 +157,28 @@ button{
 
     }
 
+}@keyframes pointerGlow{
+
+    from{
+
+        filter:
+
+            drop-shadow(0 0 5px gold)
+
+            drop-shadow(0 0 15px gold);
+
+    }
+
+    to{
+
+        filter:
+
+            drop-shadow(0 0 20px gold)
+
+            drop-shadow(0 0 40px gold);
+
+    }
+
 }</style>
 
 </head>
@@ -168,7 +197,31 @@ button{
 
 </div>
 
-<button id="spinBtn">🎰 回す</button>
+button{
+
+    background:linear-gradient(#FFD700,#D4AF37);
+
+    color:#000;
+
+    border:none;
+
+    padding:15px 35px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    border-radius:40px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:
+
+        0 0 15px gold;
+
+}
 
 <p id="result"></p>
 <script>
