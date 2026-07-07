@@ -6,49 +6,280 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>4分割ルーレット</title>
+<title>プレゼントルーレット</title>
 
 <style>
 
-body{margin:0;font-family:sans-serif;background:#111;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden}
+*{
 
-.wrap{text-align:center}
+margin:0;
 
-.pointer{width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:35px solid #fff;margin:auto}
+padding:0;
 
-#wheel{width:300px;height:300px;border-radius:50%;border:8px solid gold;margin:10px auto;position:relative;transition:transform 5s cubic-bezier(.15,.8,.15,1);
+box-sizing:border-box;
 
-background:conic-gradient(
+}
 
-#d32f2f 0 90deg,
+body{
 
-#1976d2 90deg 180deg,
+background:radial-gradient(circle,#222,#000);
 
-#388e3c 180deg 270deg,
+font-family:Arial,sans-serif;
 
-#f9a825 270deg 360deg)}
+height:100vh;
 
-.label{position:absolute;left:50%;top:50%;font-weight:bold;font-size:22px;transform-origin:0 0}
+display:flex;
 
-.l1{transform:rotate(45deg) translate(70px) rotate(-45deg)}
+justify-content:center;
 
-.l2{transform:rotate(135deg) translate(70px) rotate(-135deg)}
+align-items:center;
 
-.l3{transform:rotate(225deg) translate(70px) rotate(-225deg)}
+overflow:hidden;
 
-.l4{transform:rotate(315deg) translate(70px) rotate(-315deg)}
+color:white;
 
-.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-weight:bold}
+}
 
-button{padding:12px 35px;font-size:20px;border:none;border-radius:8px;background:gold;font-weight:bold;cursor:pointer}
+.container{
 
-#result{margin-top:20px;font-size:34px;color:gold;font-weight:bold}
+text-align:center;
 
-.c{position:fixed;width:8px;height:14px;top:-20px;animation:f 3s linear forwards}
+}
 
-@keyframes f{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+h1{
+
+font-size:42px;
+
+margin-bottom:20px;
+
+color:#FFD700;
+
+text-shadow:
+
+0 0 10px gold,
+
+0 0 20px orange,
+
+0 0 35px gold;
+
+}
+
+.pointer{
+
+width:0;
+
+height:0;
+
+border-left:18px solid transparent;
+
+border-right:18px solid transparent;
+
+border-top:40px solid white;
+
+margin:auto;
+
+margin-bottom:-5px;
+
+position:relative;
+
+z-index:5;
+
+}
+
+#wheel{
+
+width:340px;
+
+height:340px;
+
+border-radius:50%;
+
+border:10px solid gold;
+
+margin:auto;
+
+position:relative;
+
+overflow:hidden;
+
+transition:transform 5s cubic-bezier(.15,.85,.15,1);
+
+background:
+
+conic-gradient(
+
+#e53935 0deg 90deg,
+
+#1e88e5 90deg 180deg,
+
+#43a047 180deg 270deg,
+
+#fb8c00 270deg 360deg
+
+);
+
+box-shadow:
+
+0 0 20px gold,
+
+0 0 40px orange;
+
+}
+  .label{
+
+position:absolute;
+
+left:50%;
+
+top:50%;
+
+font-size:22px;
+
+font-weight:bold;
+
+color:white;
+
+text-shadow:0 0 10px black;
+
+transform-origin:0 0;
+
+}
+
+.l1{
+
+transform:rotate(45deg) translate(95px) rotate(-45deg);
+
+}
+
+.l2{
+
+transform:rotate(135deg) translate(95px) rotate(-135deg);
+
+}
+
+.l3{
+
+transform:rotate(225deg) translate(95px) rotate(-225deg);
+
+}
+
+.l4{
+
+transform:rotate(315deg) translate(95px) rotate(-315deg);
+
+}
+
+.center{
+
+position:absolute;
+
+left:50%;
+
+top:50%;
+
+transform:translate(-50%,-50%);
+
+width:90px;
+
+height:90px;
+
+border-radius:50%;
+
+background:white;
+
+color:black;
+
+font-weight:bold;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+box-shadow:0 0 20px white;
+
+}
+
+button{
+
+margin-top:30px;
+
+padding:15px 45px;
+
+font-size:22px;
+
+font-weight:bold;
+
+background:gold;
+
+border:none;
+
+border-radius:10px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:scale(1.05);
+
+}
+
+button:disabled{
+
+background:#777;
+
+color:#ddd;
+
+cursor:not-allowed;
+
+}
+
+#result{
+
+margin-top:25px;
+
+font-size:34px;
+
+font-weight:bold;
+
+color:gold;
+
+min-height:80px;
+
+}
+
+.c{
+
+position:fixed;
+
+width:8px;
+
+height:15px;
+
+top:-20px;
+
+animation:fall 3s linear forwards;
+
+}
+
+@keyframes fall{
+
+to{
+
+transform:translateY(110vh) rotate(720deg);
+
+opacity:0;
+
+}
+
+}
 
 </style>
 
@@ -56,7 +287,9 @@ button{padding:12px 35px;font-size:20px;border:none;border-radius:8px;background
 
 <body>
 
-<div class="wrap">
+<div class="container">
+
+<h1>🎰 プレゼントルーレット 🎰</h1>
 
 <div class="pointer"></div>
 
@@ -64,7 +297,7 @@ button{padding:12px 35px;font-size:20px;border:none;border-radius:8px;background
 
 <div class="label l1">💴10,000</div>
 
-<div class="label l2">💴4,000</div>
+<div class="label l2">💴5,000</div>
 
 <div class="label l3">💴3,000</div>
 
@@ -73,8 +306,11 @@ button{padding:12px 35px;font-size:20px;border:none;border-radius:8px;background
 <div class="center">SPIN</div>
 
 </div>
+<button id="spinBtn">
 
-<button onclick="spin()">回す！</button>
+🎰 回す！
+
+</button>
 
 <div id="result"></div>
 
@@ -84,15 +320,17 @@ button{padding:12px 35px;font-size:20px;border:none;border-radius:8px;background
 
 const wheel=document.getElementById("wheel");
 
+const btn=document.getElementById("spinBtn");
+
 const result=document.getElementById("result");
 
-let busy=false;
+let spinning=false;
 
 const prizes=[
 
 {money:"💴10,000円",angle:45},
 
-{money:"💴4,000円",angle:135},
+{money:"💴5,000円",angle:135},
 
 {money:"💴3,000円",angle:225},
 
@@ -100,47 +338,47 @@ const prizes=[
 
 ];
 
-function beep(){
-
-try{
-
-const a=new(window.AudioContext||window.webkitAudioContext)();
-
-const o=a.createOscillator(),g=a.createGain();
-
-o.connect(g);g.connect(a.destination);
-
-o.frequency.value=800;
-
-g.gain.value=.08;
-
-o.start();
-
-setTimeout(()=>{o.stop();a.close();},180);
-
-}catch(e){}
-
-}
-
 function confetti(){
 
-const colors=["#ff0","#f00","#0f0","#0ff","#f0f","#fff"];
+const colors=[
 
-for(let i=0;i<120;i++){
+"#FFD700",
 
-const d=document.createElement("div");
+"#ff0000",
 
-d.className="c";
+"#00ff00",
 
-d.style.left=Math.random()*100+"vw";
+"#00ffff",
 
-d.style.background=colors[Math.floor(Math.random()*colors.length)];
+"#ff00ff",
 
-d.style.animationDuration=(2+Math.random()*2)+"s";
+"#ffffff"
 
-document.body.appendChild(d);
+];
 
-setTimeout(()=>d.remove(),4000);
+for(let i=0;i<150;i++){
+
+const c=document.createElement("div");
+
+c.className="c";
+
+c.style.left=Math.random()*100+"vw";
+
+c.style.background=
+
+colors[Math.floor(Math.random()*colors.length)];
+
+c.style.animationDuration=
+
+(2+Math.random()*2)+"s";
+
+document.body.appendChild(c);
+
+setTimeout(()=>{
+
+c.remove();
+
+},4000);
 
 }
 
@@ -148,31 +386,72 @@ setTimeout(()=>d.remove(),4000);
 
 function spin(){
 
-if(busy)return;
+if(spinning)return;
 
-busy=true;
+spinning=true;
 
-result.textContent="";
+btn.disabled=true;
 
-beep();
+btn.textContent="抽選済み";
 
-const prize=prizes[Math.floor(Math.random()*4)];
+result.innerHTML="";
 
-const rotate=360*6+(360-prize.angle)ｰ45;
+const prize=
 
-wheel.style.transform = `rotate(${rotate}deg)`;
+prizes[Math.floor(Math.random()*4)];
+
+const rotate=
+
+360*8+
+
+(360-prize.angle)-45;
+
+wheel.style.transform=
+
+`rotate(${rotate}deg)`;
+  setTimeout(()=>{
+
+try{
+
+const audio=new(window.AudioContext||window.webkitAudioContext)();
+
+const osc=audio.createOscillator();
+
+const gain=audio.createGain();
+
+osc.type="triangle";
+
+osc.frequency.value=900;
+
+osc.connect(gain);
+
+gain.connect(audio.destination);
+
+gain.gain.value=0.08;
+
+osc.start();
 
 setTimeout(()=>{
 
-result.innerHTML=`🎉<br>${prize.money}`;
+osc.stop();
+
+audio.close();
+
+},250);
+
+}catch(e){}
+
+result.innerHTML=
+
+`🎉<br><span style="font-size:50px;">${prize.money}</span>`;
 
 confetti();
-
-busy=false;
 
 },5000);
 
 }
+
+btn.addEventListener("click",spin);
 
 </script>
 
