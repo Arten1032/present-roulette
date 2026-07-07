@@ -6,239 +6,49 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>カジノ風ルーレット</title>
+<title>4分割ルーレット</title>
 
 <style>
 
-*{
+body{margin:0;font-family:sans-serif;background:#111;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden}
 
-    margin:0;
+.wrap{text-align:center}
 
-    padding:0;
+.pointer{width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:35px solid #fff;margin:auto}
 
-    box-sizing:border-box;
+#wheel{width:300px;height:300px;border-radius:50%;border:8px solid gold;margin:10px auto;position:relative;transition:transform 5s cubic-bezier(.15,.8,.15,1);
 
-}
+background:conic-gradient(
 
-body{
+#d32f2f 0 90deg,
 
-    font-family:Arial, Helvetica, sans-serif;
+#1976d2 90deg 180deg,
 
-    background:radial-gradient(circle,#1b1b1b,#000);
+#388e3c 180deg 270deg,
 
-    overflow:hidden;
+#f9a825 270deg 360deg)}
 
-    color:white;
+.label{position:absolute;left:50%;top:50%;font-weight:bold;font-size:22px;transform-origin:0 0}
 
-}
+.l1{transform:rotate(45deg) translate(90px) rotate(-45deg)}
 
-.container{
+.l2{transform:rotate(135deg) translate(90px) rotate(-135deg)}
 
-    display:flex;
+.l3{transform:rotate(225deg) translate(90px) rotate(-225deg)}
 
-    justify-content:center;
+.l4{transform:rotate(315deg) translate(90px) rotate(-315deg)}
 
-    align-items:center;
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-weight:bold}
 
-    flex-direction:column;
+button{padding:12px 35px;font-size:20px;border:none;border-radius:8px;background:gold;font-weight:bold;cursor:pointer}
 
-    height:100vh;
+#result{margin-top:20px;font-size:34px;color:gold;font-weight:bold}
 
-}
+.c{position:fixed;width:8px;height:14px;top:-20px;animation:f 3s linear forwards}
 
-h1{
-
-    color:#FFD700;
-
-    font-size:42px;
-
-    margin-bottom:20px;
-
-    text-shadow:0 0 20px gold;
-
-}
-
-.pointer{
-
-    width:0;
-
-    height:0;
-
-    border-left:20px solid transparent;
-
-    border-right:20px solid transparent;
-
-    border-top:45px solid white;
-
-    margin-bottom:-5px;
-
-    z-index:100;
-
-}
-
-#wheel{
-
-    width:360px;
-
-    height:360px;
-
-    border-radius:50%;
-
-    border:12px solid gold;
-
-    position:relative;
-
-    transition:transform 6s cubic-bezier(.15,.85,.15,1);
-
-    box-shadow:
-
-        0 0 30px gold,
-
-        0 0 60px orange;
-    background:
-
-    conic-gradient(
-
-    #e53935 0deg 30deg,
-
-    #111 30deg 60deg,
-
-    #43a047 60deg 90deg,
-
-    #111 90deg 120deg,
-
-    #1e88e5 120deg 150deg,
-
-    #111 150deg 180deg,
-
-    #fb8c00 180deg 210deg,
-
-    #111 210deg 240deg,
-
-    #8e24aa 240deg 270deg,
-
-    #111 270deg 300deg,
-
-    #00acc1 300deg 330deg,
-
-    #111 330deg 360deg
-
-    );
-
-}
-
-.center{
-
-    position:absolute;
-
-    left:50%;
-
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    width:95px;
-
-    height:95px;
-
-    background:#FFD700;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    color:#111;
-
-    font-size:22px;
-
-    font-weight:bold;
-
-    box-shadow:0 0 25px white;
-
-}
-
-button{
-
-    margin-top:35px;
-
-    padding:16px 55px;
-
-    font-size:24px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:linear-gradient(#FFD700,#F5B000);
-
-    color:black;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-    transition:.3s;
-
-}
-
-button:hover{
-
-    transform:scale(1.05);
-
-    box-shadow:0 0 20px gold;
-
-}
-
-button:active{
-
-    transform:scale(.96);
-
-}
-
-#result{
-
-    margin-top:35px;
-
-    font-size:40px;
-
-    color:#FFD700;
-
-    text-align:center;
-
-    text-shadow:0 0 20px gold;
-
-}
-  .confetti{
-
-    position:fixed;
-
-    width:12px;
-
-    height:18px;
-
-    top:-20px;
-
-    animation:fall linear forwards;
-
-}
-
-@keyframes fall{
-
-    to{
-
-        transform:translateY(110vh) rotate(720deg);
-
-        opacity:0;
-
-    }
-
-}
+@keyframes f{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
 </style>
 
@@ -246,147 +56,121 @@ button:active{
 
 <body>
 
-<div class="container">
+<div class="wrap">
 
-    <h1>🎰 CASINO ROULETTE 🎰</h1>
+<div class="pointer"></div>
 
-    <div class="pointer"></div>
+<div id="wheel">
 
-    <div id="wheel">
+<div class="label l1">💴10,000</div>
 
-        <div class="center">
+<div class="label l2">💴4,000</div>
 
-            SPIN
+<div class="label l3">💴3,000</div>
 
-        </div>
+<div class="label l4">💴2,000</div>
 
-    </div>
+<div class="center">SPIN</div>
 
-    <button onclick="spin()">
+</div>
 
-        回す！
+<button onclick="spin()">回す！</button>
 
-    </button>
-
-    <div id="result"></div>
+<div id="result"></div>
 
 </div>
 
 <script>
 
-let spinning=false;
-
 const wheel=document.getElementById("wheel");
 
 const result=document.getElementById("result");
-    function playSound(){
 
-    try{
+let busy=false;
 
-        const audio=new(window.AudioContext||window.webkitAudioContext)();
+const prizes=[
 
-        const osc=audio.createOscillator();
+{money:"💴10,000円",angle:45},
 
-        const gain=audio.createGain();
+{money:"💴4,000円",angle:135},
 
-        osc.type="triangle";
+{money:"💴3,000円",angle:225},
 
-        osc.frequency.value=900;
+{money:"💴2,000円",angle:315}
 
-        osc.connect(gain);
+];
 
-        gain.connect(audio.destination);
+function beep(){
 
-        gain.gain.value=0.08;
+try{
 
-        osc.start();
+const a=new(window.AudioContext||window.webkitAudioContext)();
 
-        setTimeout(()=>{
+const o=a.createOscillator(),g=a.createGain();
 
-            osc.stop();
+o.connect(g);g.connect(a.destination);
 
-            audio.close();
+o.frequency.value=800;
 
-        },250);
+g.gain.value=.08;
 
-    }catch(e){}
+o.start();
+
+setTimeout(()=>{o.stop();a.close();},180);
+
+}catch(e){}
 
 }
 
 function confetti(){
 
-    const colors=[
+const colors=["#ff0","#f00","#0f0","#0ff","#f0f","#fff"];
 
-        "#ff0000",
+for(let i=0;i<120;i++){
 
-        "#00ff00",
+const d=document.createElement("div");
 
-        "#ffff00",
+d.className="c";
 
-        "#00ffff",
+d.style.left=Math.random()*100+"vw";
 
-        "#ff00ff",
+d.style.background=colors[Math.floor(Math.random()*colors.length)];
 
-        "#ffffff",
+d.style.animationDuration=(2+Math.random()*2)+"s";
 
-        "#ff8800"
+document.body.appendChild(d);
 
-    ];
-
-    for(let i=0;i<200;i++){
-
-        let paper=document.createElement("div");
-
-        paper.className="confetti";
-
-        paper.style.left=Math.random()*100+"vw";
-
-        paper.style.background=
-
-            colors[Math.floor(Math.random()*colors.length)];
-
-        paper.style.animationDuration=
-
-            (2+Math.random()*3)+"s";
-
-        document.body.appendChild(paper);
-
-        setTimeout(()=>{
-
-            paper.remove();
-
-        },5000);
-
-    }
+setTimeout(()=>d.remove(),4000);
 
 }
-    function spin(){
 
-    if(spinning) return;
+}
 
-    spinning=true;
+function spin(){
 
-    result.innerHTML="";
+if(busy)return;
 
-    playSound();
+busy=true;
 
-    const stopAngle=360*8+15;
+result.textContent="";
 
-    wheel.style.transform=
+beep();
 
-        "rotate("+stopAngle+"deg)";
+const prize=prizes[Math.floor(Math.random()*4)];
 
-    setTimeout(()=>{
+const rotate=360*6+(360-prize.angle);
 
-        result.innerHTML=
+wheel.style.transform=`rotate(${rotate}deg)`;
 
-        "🎉<br><span style='font-size:55px;'>💴10,000円💴</span><br>大当たり！！";
+setTimeout(()=>{
 
-        confetti();
+result.innerHTML=`🎉<br>${prize.money}`;
 
-        spinning=false;
+confetti();
 
-    },6000);
+busy=false;
+
+},5000);
 
 }
 
