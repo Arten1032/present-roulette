@@ -89,6 +89,43 @@ button{
 <button id="spinBtn">🎰 回す</button>
 
 <p id="result"></p>
+<script>
+
+const prizes = ["2000円","3000円","4000円","5000円"];
+
+let rotating = false;
+
+document.getElementById("spinBtn").onclick = function(){
+
+    if(rotating) return;
+
+    rotating = true;
+
+    const wheel = document.getElementById("wheel");
+
+    const result = document.getElementById("result");
+
+    const index = Math.floor(Math.random()*4);
+
+    const angle = 2160 + (index*90) + 45;
+
+    wheel.style.transition = "transform 5s ease-out";
+
+    wheel.style.transform = "rotate("+angle+"deg)";
+
+    setTimeout(function(){
+
+        result.innerHTML =
+
+        "🎉<br><br><span style='font-size:40px;font-weight:bold;'>"+prizes[index]+"</span><br><br>この金額以内で好きなものをプレゼント🎁<br><br>📸スクリーンショットを撮って送ってね😊";
+
+        rotating = false;
+
+    },5000);
+
+};
+
+</script>    
 </body>
 
 </html>
