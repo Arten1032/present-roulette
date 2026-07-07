@@ -76,6 +76,16 @@ button{
 
     );
 
+    box-shadow:
+
+        0 0 20px gold,
+
+        0 0 40px rgba(255,215,0,.6);
+
+    animation: glow 2s infinite alternate;
+
+}
+
 }#pointer{
 
     width:0;
@@ -117,6 +127,28 @@ button{
     font-weight:bold;
 
     box-shadow:0 0 20px gold;
+
+}@keyframes glow{
+
+    from{
+
+        box-shadow:
+
+            0 0 20px gold,
+
+            0 0 40px rgba(255,215,0,.5);
+
+    }
+
+    to{
+
+        box-shadow:
+
+            0 0 35px gold,
+
+            0 0 70px rgba(255,215,0,.9);
+
+    }
 
 }</style>
 
