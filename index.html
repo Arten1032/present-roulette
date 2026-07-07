@@ -8,21 +8,43 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>プレゼントルーレット</title>
+<title>カジノ風ルーレット</title>
 
 <style>
 
-body{
+*{
 
     margin:0;
 
-    background:#111827;
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:radial-gradient(circle,#1b1b1b,#000);
+
+    overflow:hidden;
 
     color:white;
 
-    font-family:sans-serif;
+}
 
-    text-align:center;
+.container{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    height:100vh;
 
 }
 
@@ -30,241 +52,346 @@ h1{
 
     color:#FFD700;
 
-    margin-top:40px;
+    font-size:42px;
+
+    margin-bottom:20px;
+
+    text-shadow:0 0 20px gold;
 
 }
 
-button{
-
-    background:#FFD700;
-
-    color:#000;
-
-    border:none;
-
-    padding:15px 35px;
-
-    font-size:20px;
-
-    border-radius:30px;
-
-    cursor:pointer;
-
-}
-
-#wheel{
-
-    width:250px;
-
-    height:250px;
-
-    margin:30px auto;
-
-    border-radius:50%;
-
-    border:8px solid gold;
-
-    background:conic-gradient(
-
-        #ff5a5a 0 25%,
-
-        #5aa9ff 25% 50%,
-
-        #61d96d 50% 75%,
-
-        #ffd54f 75% 100%
-
-    );
-
-    box-shadow:
-
-        0 0 20px gold,
-
-        0 0 40px rgba(255,215,0,.6);
-
-    animation: glow 2s infinite alternate;
-
-}
-
-}#pointer{
+.pointer{
 
     width:0;
 
     height:0;
 
-    margin:20px auto -12px;
+    border-left:20px solid transparent;
 
-    border-left:18px solid transparent;
+    border-right:20px solid transparent;
 
-    border-right:18px solid transparent;
+    border-top:45px solid white;
 
-    border-top:35px solid gold;
+    margin-bottom:-5px;
 
-    filter:
-
-        drop-shadow(0 0 10px gold)
-
-        drop-shadow(0 0 25px gold);
-
-    animation:pointerGlow 1s infinite alternate;
+    z-index:100;
 
 }
-}#center{
 
-    width:90px;
+#wheel{
 
-    height:90px;
+    width:360px;
 
-    background:gold;
+    height:360px;
 
     border-radius:50%;
 
-    margin:80px auto;
+    border:12px solid gold;
+
+    position:relative;
+
+    transition:transform 6s cubic-bezier(.15,.85,.15,1);
+
+    box-shadow:
+
+        0 0 30px gold,
+
+        0 0 60px orange;
+    background:
+
+    conic-gradient(
+
+    #e53935 0deg 30deg,
+
+    #111 30deg 60deg,
+
+    #43a047 60deg 90deg,
+
+    #111 90deg 120deg,
+
+    #1e88e5 120deg 150deg,
+
+    #111 150deg 180deg,
+
+    #fb8c00 180deg 210deg,
+
+    #111 210deg 240deg,
+
+    #8e24aa 240deg 270deg,
+
+    #111 270deg 300deg,
+
+    #00acc1 300deg 330deg,
+
+    #111 330deg 360deg
+
+    );
+
+}
+
+.center{
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:95px;
+
+    height:95px;
+
+    background:#FFD700;
+
+    border-radius:50%;
 
     display:flex;
 
-    align-items:center;
-
     justify-content:center;
 
-    color:#000;
+    align-items:center;
 
-    font-size:42px;
+    color:#111;
+
+    font-size:22px;
 
     font-weight:bold;
 
+    box-shadow:0 0 25px white;
+
+}
+
+button{
+
+    margin-top:35px;
+
+    padding:16px 55px;
+
+    font-size:24px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(#FFD700,#F5B000);
+
+    color:black;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:scale(1.05);
+
     box-shadow:0 0 20px gold;
 
-}@keyframes glow{
+}
 
-    from{
+button:active{
 
-        box-shadow:
+    transform:scale(.96);
 
-            0 0 20px gold,
+}
 
-            0 0 40px rgba(255,215,0,.5);
+#result{
 
-    }
+    margin-top:35px;
+
+    font-size:40px;
+
+    color:#FFD700;
+
+    text-align:center;
+
+    text-shadow:0 0 20px gold;
+
+}
+  .confetti{
+
+    position:fixed;
+
+    width:12px;
+
+    height:18px;
+
+    top:-20px;
+
+    animation:fall linear forwards;
+
+}
+
+@keyframes fall{
 
     to{
 
-        box-shadow:
+        transform:translateY(110vh) rotate(720deg);
 
-            0 0 35px gold,
-
-            0 0 70px rgba(255,215,0,.9);
+        opacity:0;
 
     }
 
-}@keyframes pointerGlow{
+}
 
-    from{
-
-        filter:
-
-            drop-shadow(0 0 5px gold)
-
-            drop-shadow(0 0 15px gold);
-
-    }
-
-    to{
-
-        filter:
-
-            drop-shadow(0 0 20px gold)
-
-            drop-shadow(0 0 40px gold);
-
-    }
-
-}</style>
+</style>
 
 </head>
 
 <body>
 
-<h1>🎁 プレゼントルーレット 🎁</h1>
-<div id="pointer"></div>
-<div id="wheel">
+<div class="container">
 
-    <div id="center">
+    <h1>🎰 CASINO ROULETTE 🎰</h1>
 
-        🎰
+    <div class="pointer"></div>
+
+    <div id="wheel">
+
+        <div class="center">
+
+            SPIN
+
+        </div>
 
     </div>
 
+    <button onclick="spin()">
+
+        回す！
+
+    </button>
+
+    <div id="result"></div>
+
 </div>
-
-<button id="spinBtn">🎰 回す</button>
-
-<p id="result"></p>
 
 <script>
 
-const prizes = ["2000円","3000円","4000円","5000円"];
+let spinning=false;
 
-let rotating = false;
+const wheel=document.getElementById("wheel");
 
-document.getElementById("spinBtn").onclick = function(){
+const result=document.getElementById("result");
+    function playSound(){
 
-    if(rotating) return;
+    try{
 
-    rotating = true;
+        const audio=new(window.AudioContext||window.webkitAudioContext)();
 
-    const wheel = document.getElementById("wheel");
+        const osc=audio.createOscillator();
 
-    const result = document.getElementById("result");
+        const gain=audio.createGain();
 
-    const index = Math.floor(Math.random()*4);
+        osc.type="triangle";
 
-    const angle = 2160 + (index*90) + 45;
+        osc.frequency.value=900;
 
-    wheel.style.transition = "transform 5s ease-out";
+        osc.connect(gain);
 
-    wheel.style.transform = "rotate("+angle+"deg)";
+        gain.connect(audio.destination);
 
-    setTimeout(function(){
+        gain.gain.value=0.08;
 
-        result.innerHTML =`
+        osc.start();
 
-        <h2 style="color:#FFD700;">🎉 おめでとう！ 🎉</h2>
+        setTimeout(()=>{
 
-<div style="
+            osc.stop();
 
-font-size:70px;
+            audio.close();
 
-font-weight:bold;
+        },250);
 
-margin:20px 0;
+    }catch(e){}
 
-color:#fff;
+}
 
-text-shadow:0 0 20px gold;">
+function confetti(){
 
-🎁 ${prizes[index]}
+    const colors=[
 
-</div>
+        "#ff0000",
 
-<div style="font-size:24px;line-height:1.8;">
+        "#00ff00",
 
-この金額以内で<br>
+        "#ffff00",
 
-好きなものをプレゼント🎁
+        "#00ffff",
 
-</div>
+        "#ff00ff",
 
+        "#ffffff",
 
-`;
+        "#ff8800"
 
-        rotating = false;
+    ];
 
-    },5000);
+    for(let i=0;i<200;i++){
 
-};
+        let paper=document.createElement("div");
 
-</script>    
+        paper.className="confetti";
+
+        paper.style.left=Math.random()*100+"vw";
+
+        paper.style.background=
+
+            colors[Math.floor(Math.random()*colors.length)];
+
+        paper.style.animationDuration=
+
+            (2+Math.random()*3)+"s";
+
+        document.body.appendChild(paper);
+
+        setTimeout(()=>{
+
+            paper.remove();
+
+        },5000);
+
+    }
+
+}
+    function spin(){
+
+    if(spinning) return;
+
+    spinning=true;
+
+    result.innerHTML="";
+
+    playSound();
+
+    const stopAngle=360*8+15;
+
+    wheel.style.transform=
+
+        "rotate("+stopAngle+"deg)";
+
+    setTimeout(()=>{
+
+        result.innerHTML=
+
+        "🎉<br><span style='font-size:55px;'>💴10,000円💴</span><br>大当たり！！";
+
+        confetti();
+
+        spinning=false;
+
+    },6000);
+
+}
+
+</script>
+
 </body>
 
 </html>
