@@ -52,7 +52,31 @@ button{
 
 }
 
-</style>
+#wheel{
+
+    width:250px;
+
+    height:250px;
+
+    margin:30px auto;
+
+    border-radius:50%;
+
+    border:8px solid gold;
+
+    background:conic-gradient(
+
+        #ff5a5a 0 25%,
+
+        #5aa9ff 25% 50%,
+
+        #61d96d 50% 75%,
+
+        #ffd54f 75% 100%
+
+    );
+
+}</style>
 
 </head>
 
@@ -60,10 +84,11 @@ button{
 
 <h1>🎁 プレゼントルーレット 🎁</h1>
 
-<p>もうすぐ完成！</p>
+<div id="wheel"></div>
 
-<button>🎰 回す</button>
+<button id="spinBtn">🎰 回す</button>
 
+<p id="result"></p>
 </body>
 
 </html>
