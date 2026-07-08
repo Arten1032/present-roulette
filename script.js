@@ -1,154 +1,56 @@
-// ==========================================
-
-// LINE CASINO ROULETTE
-
-// script.js
-
-// 第1回
-
-// ==========================================
-
-// ---------- Canvas ----------
-
-const canvas = document.getElementById("roulette");
+const canvas = document.getElementById("wheel");
 
 const ctx = canvas.getContext("2d");
 
-// ---------- ボタン ----------
-
-const spinButton = document.getElementById("spinButton");
-
-// ---------- 結果 ----------
+const spinBtn = document.getElementById("spin");
 
 const result = document.getElementById("result");
 
-// ---------- 履歴 ----------
-
-const historyList = document.getElementById("historyList");
-
-// ---------- 演出 ----------
-
-const flash = document.getElementById("flash");
-
 const jackpot = document.getElementById("jackpot");
-
-// ---------- 景品 ----------
 
 const prizes = [
 
-    "100円",
-
-    "500円",
-
-    "1000円",
-
     "2000円",
 
-    "5000円",
+    "3000円",
 
-    "10000円",
+    "4000円",
 
-    "もう一回",
-
-    "ハズレ"
+    "10000円"
 
 ];
-
-// ---------- 色 ----------
 
 const colors = [
 
-    "#ff3b30",
+    "#2196F3",
 
-    "#007aff",
+    "#4CAF50",
 
-    "#34c759",
+    "#F44336",
 
-    "#ffd60a",
-
-    "#ff2d55",
-
-    "#5ac8fa",
-
-    "#30d158",
-
-    "#bf5af2"
+    "#FFD700"
 
 ];
 
-// ---------- 確率 ----------
+let angle = 0;
 
-const weights = [
+let played = false;
 
-    30,
-
-    20,
-
-    15,
-
-    10,
-
-    5,
-
-    1,
-
-    10,
-
-    9
-
-];
-
-// ---------- 状態 ----------
-
-let rotation = 0;
-
-let spinning = false;
-
-// ==========================================
-
-// Canvas描画
-
-// ==========================================
+// ルーレット描画
 
 function drawWheel(){
 
-    const total = prizes.length;
-
-    const arc = Math.PI * 2 / total;
-
     const radius = canvas.width / 2;
 
-    ctx.clearRect(
+    const arc = Math.PI * 2 / prizes.length;
 
-        0,
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-        0,
-
-        canvas.width,
-
-        canvas.height
-
-    );
-
-    for(let i=0;i<total;i++){
-
-        const start =
-
-        arc * i;
-
-        const end =
-
-        start + arc;
+    for(let i=0;i<prizes.length;i++){
 
         ctx.beginPath();
 
-        ctx.moveTo(
-
-            radius,
-
-            radius
-
-        );
+        ctx.moveTo(radius,radius);
 
         ctx.arc(
 
@@ -156,59 +58,39 @@ function drawWheel(){
 
             radius,
 
-            radius-8,
+            radius-5,
 
-            start,
+            i*arc,
 
-            end
+            (i+1)*arc
 
         );
 
         ctx.closePath();
 
-        ctx.fillStyle =
-
-        colors[i];
+        ctx.fillStyle = colors[i];
 
         ctx.fill();
 
-        // 景品文字
-
         ctx.save();
 
-        ctx.translate(
+        ctx.translate(radius,radius);
 
-            radius,
+        ctx.rotate(i*arc+arc/2);
 
-            radius
+        ctx.fillStyle="white";
 
-        );
+        ctx.font="bold 24px sans-serif";
 
-        ctx.rotate(
-
-            start + arc/2
-
-        );
-
-        ctx.fillStyle =
-
-        "white";
-
-        ctx.font =
-
-        "bold 18px sans-serif";
-
-        ctx.textAlign =
-
-        "right";
+        ctx.textAlign="right";
 
         ctx.fillText(
 
             prizes[i],
 
-            radius-25,
+            radius-30,
 
-            8
+            10
 
         );
 
@@ -218,197 +100,64 @@ function drawWheel(){
 
 }
 
-// 初回描画
-
 drawWheel();
-// ==========================================
-
-// 第2回
-
-// 回転・抽選・結果表示
-
-// ==========================================
-
-// 回転用
-
-let currentAngle = 0;
-
-// AudioContext
-
-let audioContext = null;
-
-function getAudio(){
-
-    if(!audioContext){
-
-        audioContext =
-
-        new(window.AudioContext||
-
-        window.webkitAudioContext)();
-
-    }
-
-    return audioContext;
-
-}
-
-// 効果音
-
-function playTone(freq,time){
-
-    const ctx = getAudio();
-
-    const osc = ctx.createOscillator();
-
-    const gain = ctx.createGain();
-
-    osc.type="triangle";
-
-    osc.frequency.value=freq;
-
-    osc.connect(gain);
-
-    gain.connect(ctx.destination);
-
-    gain.gain.value=0.15;
-
-    osc.start();
-
-    gain.gain.exponentialRampToValueAtTime(
-
-        0.0001,
-
-        ctx.currentTime+time
-
-    );
-
-    osc.stop(
-
-        ctx.currentTime+time
-
-    );
-
-}
-
-// 重み付き抽選
-
-function lottery(){
-
-    const total =
-
-    weights.reduce((a,b)=>a+b,0);
-
-    let r=Math.random()*total;
-
-    for(let i=0;i<weights.length;i++){
-
-        r-=weights[i];
-
-        if(r<=0){
-
-            return i;
-
-        }
-
-    }
-
-    return 0;
-
-}
-
-// 履歴
-
-function addHistory(text){
-
-    const li=
-
-    document.createElement("li");
-
-    li.textContent=
-
-    new Date().toLocaleTimeString()
-
-    +"　"+text;
-
-    historyList.prepend(li);
-
-}
 
 // ボタン
 
-spinButton.addEventListener("click",async()=>{
+spinBtn.onclick=()=>{
 
-    if(spinning)return;
+    if(played)return;
 
-    spinning=true;
+    played=true;
 
-    spinButton.disabled=true;
+    spinBtn.disabled=true;
 
-    await getAudio().resume();
+    const index=
 
-    result.innerHTML="";
+    Math.floor(
 
-    playTone(250,.15);
+        Math.random()*4
 
-    const index=lottery();
+    );
 
-    const prize=prizes[index];
+    const arc=360/4;
 
-    const section=360/prizes.length;
+    const stop=
 
-    const stopAngle=
+    360*6+
 
-    360*8+
+    (360-index*arc-arc/2);
 
-    (360-(index*section)-section/2);
-
-    currentAngle+=stopAngle;
-
-    canvas.style.transition=
-
-    "transform 6s cubic-bezier(.18,.95,.2,1)";
+    angle+=stop;
 
     canvas.style.transform=
 
-    `rotate(${currentAngle}deg)`;
-
-    if(navigator.vibrate){
-
-        navigator.vibrate(80);
-
-    }
+    `rotate(${angle}deg)`;
 
     setTimeout(()=>{
 
-        playTone(
-
-            prize==="10000円"
-
-            ?1100
-
-            :550,
-
-            .35
-
-        );
-
         result.innerHTML=
 
-        "🎉<br><span style='font-size:42px'>"
+        `<h2>🎉 当選 🎉</h2>
 
-        +prize+
+        <h1>${prizes[index]}</h1>`;
 
-        "</span>";
+        if(prizes[index]==="10000円"){
 
-        addHistory(prize);
+            jackpot.classList.add("show");
 
-        spinning=false;
+            if(navigator.vibrate){
 
-        spinButton.disabled=false;
+                navigator.vibrate(
 
-    },6100);
+                    [300,100,300]
 
-});
-spinButton.onclick = () => alert("クリックされた！");
-alert("script.js 読み込みOK");
+                );
+
+            }
+
+        }
+
+    },6000);
+
+}
