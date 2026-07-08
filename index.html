@@ -4,83 +4,59 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>LINE Casino Roulette</title>
+<title>プレゼントルーレット</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-<div class="background-glow"></div>
-
 <div class="container">
 
-    <h1>🎰 LINE CASINO</h1>
+<h1>🎰 プレゼントルーレット</h1>
 
-    <div class="pointer">
+<div class="pointer">▼</div>
 
-        ▼
+<div class="wheel-area">
 
-    </div>
+<canvas
 
-    <div class="roulette-wrapper">
+id="wheel"
 
-        <canvas id="roulette"
+width="420"
 
-                width="420"
+height="420">
 
-                height="420">
-
-        </canvas>
-
-        <div class="center-circle">
-
-            GO
-
-        </div>
-
-    </div>
-
-    <button id="spinButton">
-
-        🎲 ルーレットを回す
-
-    </button>
-
-    <div id="result">
-
-    </div>
-
-    <section class="history">
-
-        <h2>
-
-            当選履歴
-
-        </h2>
-
-        <ul id="historyList">
-
-        </ul>
-
-    </section>
+</canvas>
 
 </div>
 
-<div id="flash"></div>
+<button id="spin">
+
+🎲 ルーレットを回す
+
+</button>
+
+<div id="result"></div>
+
+</div>
 
 <div id="jackpot">
 
-    <span>
+<div class="jackpot-box">
 
-        💰10000円GET!!💰
+✨ JACKPOT ✨
 
-    </span>
+<br><br>
+
+💰10000円💰
+
+</div>
 
 </div>
 
