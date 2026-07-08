@@ -411,3 +411,4 @@ spinButton.addEventListener("click",async()=>{
 
 });
 spinButton.onclick = () => alert("クリックされた！");
+alert("script.js 読み込みOK");
