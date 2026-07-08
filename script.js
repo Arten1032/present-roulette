@@ -126,7 +126,7 @@ spinBtn.onclick=()=>{
 
     360*6+
 
-    (360-index*arc-arc/2);
+    (270-index*arc-arc/2);
 
     angle+=stop;
 
