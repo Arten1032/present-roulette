@@ -1,392 +1,300 @@
-/* =========================================
-
-   LINE CASINO ROULETTE
-
-   style.css
-
-========================================= */
-
 *{
 
-    margin:0;
+margin:0;
 
-    padding:0;
+padding:0;
 
-    box-sizing:border-box;
+box-sizing:border-box;
 
-}
-
-html,body{
-
-    width:100%;
-
-    height:100%;
-
-    overflow:hidden;
-
-    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
 
 }
 
 body{
 
-    background:
+background:
 
-    radial-gradient(circle at top,#333,#111);
+radial-gradient(circle,#333,#111);
 
-    display:flex;
+display:flex;
 
-    justify-content:center;
+justify-content:center;
 
-    align-items:center;
+align-items:center;
 
-    color:white;
+height:100vh;
 
-}
+overflow:hidden;
 
-/* 背景ネオン */
-
-.background-glow{
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-
-    radial-gradient(circle,#00ff8840,transparent 70%);
-
-    animation:glow 5s infinite alternate;
-
-    z-index:-2;
-
-}
-
-@keyframes glow{
-
-    from{
-
-        filter:blur(20px);
-
-    }
-
-    to{
-
-        filter:blur(70px);
-
-    }
+color:white;
 
 }
 
 .container{
 
-    width:min(95%,430px);
+width:100%;
 
-    text-align:center;
+max-width:450px;
+
+text-align:center;
+
+padding:20px;
 
 }
 
 h1{
 
-    color:#00ff88;
+font-size:34px;
 
-    font-size:34px;
+margin-bottom:20px;
 
-    margin-bottom:15px;
+color:#00ff99;
 
-    text-shadow:
+text-shadow:
 
-    0 0 8px #00ff88,
+0 0 10px #00ff99,
 
-    0 0 20px #00ff88,
+0 0 20px #00ff99,
 
-    0 0 40px #00ff88;
+0 0 40px #00ff99;
 
 }
 
 .pointer{
 
-    color:gold;
+font-size:42px;
 
-    font-size:38px;
+color:gold;
 
-    margin-bottom:8px;
+margin-bottom:10px;
 
-    animation:pointer 1s infinite;
+animation:pointer 1s infinite;
 
 }
 
 @keyframes pointer{
 
-    0%{
+0%{
 
-        transform:translateY(0);
-
-    }
-
-    50%{
-
-        transform:translateY(8px);
-
-    }
-
-    100%{
-
-        transform:translateY(0);
-
-    }
+transform:translateY(0);
 
 }
 
-/* ルーレット */
+50%{
 
-.roulette-wrapper{
-
-    position:relative;
-
-    width:420px;
-
-    height:420px;
-
-    margin:auto;
+transform:translateY(8px);
 
 }
 
-#roulette{
+100%{
 
-    width:100%;
-
-    height:100%;
-
-    border-radius:50%;
-
-    border:12px solid gold;
-
-    background:#222;
-
-    box-shadow:
-
-    0 0 30px gold,
-
-    0 0 60px orange,
-
-    inset 0 0 30px black;
+transform:translateY(0);
 
 }
 
-.center-circle{
+}
 
-    position:absolute;
+.wheel-area{
 
-    left:50%;
+width:420px;
 
-    top:50%;
+height:420px;
 
-    transform:translate(-50%,-50%);
+margin:auto;
 
-    width:90px;
-
-    height:90px;
-
-    border-radius:50%;
-
-    background:gold;
-
-    color:#222;
-
-    font-size:26px;
-
-    font-weight:bold;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    box-shadow:
-
-    0 0 20px yellow;
+position:relative;
 
 }
 
-/* ボタン */
+#wheel{
+
+width:100%;
+
+height:100%;
+
+border-radius:50%;
+
+border:12px solid gold;
+
+background:#222;
+
+box-shadow:
+
+0 0 30px gold,
+
+0 0 70px orange,
+
+inset 0 0 30px black;
+
+transition:
+
+transform 6s cubic-bezier(.18,.95,.2,1);
+
+}
 
 button{
 
-    margin-top:25px;
+margin-top:30px;
 
-    width:260px;
+width:250px;
 
-    height:60px;
+height:60px;
 
-    border:none;
+border:none;
 
-    border-radius:18px;
+border-radius:18px;
 
-    font-size:22px;
+background:
 
-    font-weight:bold;
+linear-gradient(45deg,#00c853,#00ff88);
 
-    cursor:pointer;
+color:white;
 
-    color:white;
+font-size:22px;
 
-    background:
+font-weight:bold;
 
-    linear-gradient(45deg,#00b84f,#00ff88);
+cursor:pointer;
 
-    box-shadow:
+box-shadow:
 
-    0 0 20px #00ff88;
+0 0 20px #00ff88;
 
-    transition:.2s;
+transition:.2s;
 
 }
 
 button:hover{
 
-    transform:scale(1.04);
+transform:scale(1.04);
 
 }
 
 button:active{
 
-    transform:scale(.95);
+transform:scale(.95);
 
 }
 
 button:disabled{
 
-    opacity:.5;
+opacity:.45;
+
+cursor:not-allowed;
 
 }
-
-/* 結果 */
 
 #result{
 
-    margin-top:25px;
+margin-top:25px;
 
-    min-height:70px;
+font-size:40px;
 
-    font-size:34px;
+font-weight:bold;
 
-    font-weight:bold;
+min-height:60px;
 
-}
+text-shadow:
 
-/* 履歴 */
-
-.history{
-
-    margin-top:25px;
-
-    background:#1d1d1d;
-
-    border-radius:15px;
-
-    padding:15px;
-
-    max-height:180px;
-
-    overflow:auto;
+0 0 12px white;
 
 }
-
-.history h2{
-
-    color:#00ff88;
-
-    margin-bottom:10px;
-
-}
-
-.history ul{
-
-    list-style:none;
-
-}
-
-.history li{
-
-    padding:8px;
-
-    border-bottom:1px solid #333;
-
-}
-
-/* フラッシュ */
-
-#flash{
-
-    position:fixed;
-
-    inset:0;
-
-    background:gold;
-
-    opacity:0;
-
-    pointer-events:none;
-
-}
-
-/* JACKPOT */
 
 #jackpot{
 
-    position:fixed;
+position:fixed;
 
-    inset:0;
+left:0;
 
-    display:flex;
+top:0;
 
-    justify-content:center;
+width:100vw;
 
-    align-items:center;
+height:100vh;
 
-    pointer-events:none;
+display:flex;
 
-    opacity:0;
+justify-content:center;
 
-}
+align-items:center;
 
-#jackpot span{
+background:rgba(255,215,0,.18);
 
-    font-size:60px;
+backdrop-filter:blur(4px);
 
-    font-weight:bold;
+opacity:0;
 
-    color:gold;
+visibility:hidden;
 
-    text-shadow:
+transition:.4s;
 
-    0 0 20px yellow,
-
-    0 0 40px orange;
+z-index:999;
 
 }
 
-/* スマホ */
+#jackpot.show{
+
+opacity:1;
+
+visibility:visible;
+
+}
+
+.jackpot-box{
+
+padding:35px;
+
+border-radius:20px;
+
+background:
+
+linear-gradient(45deg,
+
+gold,
+
+#fff2a8);
+
+color:#222;
+
+font-size:48px;
+
+font-weight:bold;
+
+text-align:center;
+
+box-shadow:
+
+0 0 40px gold,
+
+0 0 80px yellow;
+
+animation:jackpot 1s infinite alternate;
+
+}
+
+@keyframes jackpot{
+
+from{
+
+transform:scale(1);
+
+}
+
+to{
+
+transform:scale(1.08);
+
+}
+
+}
 
 @media(max-width:480px){
 
-.roulette-wrapper{
+.wheel-area{
 
 width:320px;
 
 height:320px;
-
-}
-
-.center-circle{
-
-width:70px;
-
-height:70px;
-
-font-size:20px;
 
 }
 
@@ -398,9 +306,9 @@ font-size:20px;
 
 }
 
-h1{
+.jackpot-box{
 
-font-size:28px;
+font-size:34px;
 
 }
 
