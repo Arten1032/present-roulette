@@ -144,20 +144,193 @@ spinBtn.onclick=()=>{
 
         if(prizes[index]==="10000円"){
 
-            jackpot.classList.add("show");
+    jackpot.classList.add("show");
 
-            if(navigator.vibrate){
+    confetti();
 
-                navigator.vibrate(
+    coinRain();
 
-                    [300,100,300]
+    playJackpot();
 
-                );
+    if(navigator.vibrate){
+
+        navigator.vibrate([300,100,300,100,600]);
+
+    }
+
+}
+
+                   
+
+    },6000);
+
+}
+// ===============================
+
+// 第4回 豪華演出
+
+// ===============================
+
+// 紙吹雪
+
+function confetti(){
+
+    for(let i=0;i<120;i++){
+
+        const div=document.createElement("div");
+
+        div.innerHTML="🎊";
+
+        div.style.position="fixed";
+
+        div.style.left=Math.random()*100+"vw";
+
+        div.style.top="-50px";
+
+        div.style.fontSize=
+
+        (18+Math.random()*18)+"px";
+
+        div.style.pointerEvents="none";
+
+        div.style.zIndex="9999";
+
+        document.body.appendChild(div);
+
+        div.animate([
+
+            {
+
+                transform:
+
+                "translateY(0) rotate(0deg)"
+
+            },
+
+            {
+
+                transform:
+
+                `translateY(120vh)
+
+                rotate(${720+Math.random()*720}deg)`
 
             }
 
-        }
+        ],{
 
-    },6000);
+            duration:3000,
+
+            easing:"ease-in"
+
+        });
+
+        setTimeout(()=>{
+
+            div.remove();
+
+        },3000);
+
+    }
+
+}
+
+// 金貨
+
+function coinRain(){
+
+    for(let i=0;i<60;i++){
+
+        const coin=document.createElement("div");
+
+        coin.innerHTML="🪙";
+
+        coin.style.position="fixed";
+
+        coin.style.left=Math.random()*100+"vw";
+
+        coin.style.top="-40px";
+
+        coin.style.fontSize="32px";
+
+        coin.style.pointerEvents="none";
+
+        coin.style.zIndex="9999";
+
+        document.body.appendChild(coin);
+
+        coin.animate([
+
+            {
+
+                transform:"translateY(0)"
+
+            },
+
+            {
+
+                transform:
+
+                "translateY(120vh)"
+
+            }
+
+        ],{
+
+            duration:2500
+
+        });
+
+        setTimeout(()=>{
+
+            coin.remove();
+
+        },2500);
+
+    }
+
+}
+
+// 効果音
+
+function playJackpot(){
+
+    const ctx=
+
+    new(
+
+    window.AudioContext||
+
+    window.webkitAudioContext
+
+    )();
+
+    const osc=
+
+    ctx.createOscillator();
+
+    const gain=
+
+    ctx.createGain();
+
+    osc.frequency.value=1200;
+
+    osc.type="triangle";
+
+    osc.connect(gain);
+
+    gain.connect(ctx.destination);
+
+    osc.start();
+
+    gain.gain.exponentialRampToValueAtTime(
+
+        0.0001,
+
+        ctx.currentTime+1
+
+    );
+
+    osc.stop(ctx.currentTime+1);
 
 }
