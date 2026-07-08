@@ -405,3 +405,192 @@ font-size:28px;
 }
 
 }
+// ==========================================
+
+// 第2回
+
+// 回転・抽選・結果表示
+
+// ==========================================
+
+// 回転用
+
+let currentAngle = 0;
+
+// AudioContext
+
+let audioContext = null;
+
+function getAudio(){
+
+    if(!audioContext){
+
+        audioContext =
+
+        new(window.AudioContext||
+
+        window.webkitAudioContext)();
+
+    }
+
+    return audioContext;
+
+}
+
+// 効果音
+
+function playTone(freq,time){
+
+    const ctx = getAudio();
+
+    const osc = ctx.createOscillator();
+
+    const gain = ctx.createGain();
+
+    osc.type="triangle";
+
+    osc.frequency.value=freq;
+
+    osc.connect(gain);
+
+    gain.connect(ctx.destination);
+
+    gain.gain.value=0.15;
+
+    osc.start();
+
+    gain.gain.exponentialRampToValueAtTime(
+
+        0.0001,
+
+        ctx.currentTime+time
+
+    );
+
+    osc.stop(
+
+        ctx.currentTime+time
+
+    );
+
+}
+
+// 重み付き抽選
+
+function lottery(){
+
+    const total =
+
+    weights.reduce((a,b)=>a+b,0);
+
+    let r=Math.random()*total;
+
+    for(let i=0;i<weights.length;i++){
+
+        r-=weights[i];
+
+        if(r<=0){
+
+            return i;
+
+        }
+
+    }
+
+    return 0;
+
+}
+
+// 履歴
+
+function addHistory(text){
+
+    const li=
+
+    document.createElement("li");
+
+    li.textContent=
+
+    new Date().toLocaleTimeString()
+
+    +"　"+text;
+
+    historyList.prepend(li);
+
+}
+
+// ボタン
+
+spinButton.addEventListener("click",async()=>{
+
+    if(spinning)return;
+
+    spinning=true;
+
+    spinButton.disabled=true;
+
+    await getAudio().resume();
+
+    result.innerHTML="";
+
+    playTone(250,.15);
+
+    const index=lottery();
+
+    const prize=prizes[index];
+
+    const section=360/prizes.length;
+
+    const stopAngle=
+
+    360*8+
+
+    (360-(index*section)-section/2);
+
+    currentAngle+=stopAngle;
+
+    canvas.style.transition=
+
+    "transform 6s cubic-bezier(.18,.95,.2,1)";
+
+    canvas.style.transform=
+
+    `rotate(${currentAngle}deg)`;
+
+    if(navigator.vibrate){
+
+        navigator.vibrate(80);
+
+    }
+
+    setTimeout(()=>{
+
+        playTone(
+
+            prize==="10000円"
+
+            ?1100
+
+            :550,
+
+            .35
+
+        );
+
+        result.innerHTML=
+
+        "🎉<br><span style='font-size:42px'>"
+
+        +prize+
+
+        "</span>";
+
+        addHistory(prize);
+
+        spinning=false;
+
+        spinButton.disabled=false;
+
+    },6100);
+
+});
