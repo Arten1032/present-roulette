@@ -1,0 +1,407 @@
+/* =========================================
+
+   LINE CASINO ROULETTE
+
+   style.css
+
+========================================= */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+html,body{
+
+    width:100%;
+
+    height:100%;
+
+    overflow:hidden;
+
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+
+}
+
+body{
+
+    background:
+
+    radial-gradient(circle at top,#333,#111);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+}
+
+/* 背景ネオン */
+
+.background-glow{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle,#00ff8840,transparent 70%);
+
+    animation:glow 5s infinite alternate;
+
+    z-index:-2;
+
+}
+
+@keyframes glow{
+
+    from{
+
+        filter:blur(20px);
+
+    }
+
+    to{
+
+        filter:blur(70px);
+
+    }
+
+}
+
+.container{
+
+    width:min(95%,430px);
+
+    text-align:center;
+
+}
+
+h1{
+
+    color:#00ff88;
+
+    font-size:34px;
+
+    margin-bottom:15px;
+
+    text-shadow:
+
+    0 0 8px #00ff88,
+
+    0 0 20px #00ff88,
+
+    0 0 40px #00ff88;
+
+}
+
+.pointer{
+
+    color:gold;
+
+    font-size:38px;
+
+    margin-bottom:8px;
+
+    animation:pointer 1s infinite;
+
+}
+
+@keyframes pointer{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(8px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ルーレット */
+
+.roulette-wrapper{
+
+    position:relative;
+
+    width:420px;
+
+    height:420px;
+
+    margin:auto;
+
+}
+
+#roulette{
+
+    width:100%;
+
+    height:100%;
+
+    border-radius:50%;
+
+    border:12px solid gold;
+
+    background:#222;
+
+    box-shadow:
+
+    0 0 30px gold,
+
+    0 0 60px orange,
+
+    inset 0 0 30px black;
+
+}
+
+.center-circle{
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:gold;
+
+    color:#222;
+
+    font-size:26px;
+
+    font-weight:bold;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    box-shadow:
+
+    0 0 20px yellow;
+
+}
+
+/* ボタン */
+
+button{
+
+    margin-top:25px;
+
+    width:260px;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:18px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:
+
+    linear-gradient(45deg,#00b84f,#00ff88);
+
+    box-shadow:
+
+    0 0 20px #00ff88;
+
+    transition:.2s;
+
+}
+
+button:hover{
+
+    transform:scale(1.04);
+
+}
+
+button:active{
+
+    transform:scale(.95);
+
+}
+
+button:disabled{
+
+    opacity:.5;
+
+}
+
+/* 結果 */
+
+#result{
+
+    margin-top:25px;
+
+    min-height:70px;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+}
+
+/* 履歴 */
+
+.history{
+
+    margin-top:25px;
+
+    background:#1d1d1d;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    max-height:180px;
+
+    overflow:auto;
+
+}
+
+.history h2{
+
+    color:#00ff88;
+
+    margin-bottom:10px;
+
+}
+
+.history ul{
+
+    list-style:none;
+
+}
+
+.history li{
+
+    padding:8px;
+
+    border-bottom:1px solid #333;
+
+}
+
+/* フラッシュ */
+
+#flash{
+
+    position:fixed;
+
+    inset:0;
+
+    background:gold;
+
+    opacity:0;
+
+    pointer-events:none;
+
+}
+
+/* JACKPOT */
+
+#jackpot{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    pointer-events:none;
+
+    opacity:0;
+
+}
+
+#jackpot span{
+
+    font-size:60px;
+
+    font-weight:bold;
+
+    color:gold;
+
+    text-shadow:
+
+    0 0 20px yellow,
+
+    0 0 40px orange;
+
+}
+
+/* スマホ */
+
+@media(max-width:480px){
+
+.roulette-wrapper{
+
+width:320px;
+
+height:320px;
+
+}
+
+.center-circle{
+
+width:70px;
+
+height:70px;
+
+font-size:20px;
+
+}
+
+button{
+
+width:220px;
+
+font-size:20px;
+
+}
+
+h1{
+
+font-size:28px;
+
+}
+
+}
