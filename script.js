@@ -176,9 +176,79 @@ spinButton.onclick=()=>{
 
     setTimeout(()=>{
 
-        // 第3回-②で
+        const finalAngle = ((rotation % 360) + 360) % 360;
 
-        // 当選判定
+// 矢印は真上(270°)なので補正
+
+const pointer = (360 - finalAngle + 270) % 360;
+
+// 0～89:2000円
+
+// 90～179:3000円
+
+// 180～269:4000円
+
+// 270～359:10000円
+
+let prize = "";
+
+if(pointer < 90){
+
+    prize = "2000円";
+
+}else if(pointer < 180){
+
+    prize = "3000円";
+
+}else if(pointer < 270){
+
+    prize = "4000円";
+
+}else{
+
+    prize = "10000円";
+
+}
+
+result.innerHTML = `
+
+<h2>🎉 当選 🎉</h2>
+
+<h1>${prize}</h1>
+
+`;
+
+if(prize === "10000円"){
+
+    result.innerHTML += `
+
+    <div style="
+
+    color:gold;
+
+    font-size:34px;
+
+    margin-top:15px;
+
+    text-shadow:0 0 15px gold;
+
+    ">
+
+    ✨JACKPOT!!✨
+
+    </div>
+
+    `;
+
+    if(navigator.vibrate){
+
+        navigator.vibrate([300,100,300]);
+
+    }
+
+}
+
+spinning = false;
 
     },5000);
 
