@@ -134,7 +134,7 @@ spinButton.onclick=()=>{
 
     const index = Math.floor(Math.random()*4);
 
-const stop = 360 * 6 + (270 - index * 90);
+const stop = 360 * 6 + (360 - index * 80);
 
 angle += stop;
 
