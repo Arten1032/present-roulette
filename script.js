@@ -44,39 +44,33 @@ const radius = 190;
 
 const center = 200;
 
-let angle = 0;
+let currentRotation = 0;
 
 let played = false;
 
-// =====================
+// =======================
 
-// 描画
+// ルーレット描画
 
-// =====================
+// =======================
 
 function drawWheel(){
 
     ctx.clearRect(0,0,400,400);
 
-    ctx.save();
-
-    ctx.translate(center,center);
-
-    ctx.rotate(angle*Math.PI/180);
-
-    const arc=Math.PI*2/4;
+    const arc = Math.PI * 2 / 4;
 
     for(let i=0;i<4;i++){
 
         ctx.beginPath();
 
-        ctx.moveTo(0,0);
+        ctx.moveTo(center,center);
 
         ctx.arc(
 
-            0,
+            center,
 
-            0,
+            center,
 
             radius,
 
@@ -88,21 +82,23 @@ function drawWheel(){
 
         ctx.closePath();
 
-        ctx.fillStyle=colors[i];
+        ctx.fillStyle = colors[i];
 
         ctx.fill();
 
         ctx.save();
 
+        ctx.translate(center,center);
+
         ctx.rotate(i*arc+arc/2-Math.PI/2);
 
         ctx.textAlign="right";
 
-        ctx.fillStyle=
-
-        i===3?"#000":"#fff";
-
         ctx.font="bold 24px sans-serif";
+
+        ctx.fillStyle =
+
+        i===3 ? "#000" : "#fff";
 
         ctx.fillText(
 
@@ -118,13 +114,16 @@ function drawWheel(){
 
     }
 
-    ctx.restore();
-
 }
 
 drawWheel();
+// =======================
 
-spinButton.onclick=()=>{
+// 回転
+
+// =======================
+
+spinButton.addEventListener("click",()=>{
 
     if(played)return;
 
@@ -132,149 +131,62 @@ spinButton.onclick=()=>{
 
     spinButton.disabled=true;
 
-    const index = Math.floor(Math.random()*4);
+    // ランダムに止まる位置
 
-const stop = 360 * 6 + (420 - index * 90);
+    const target =
 
-angle += stop;
+    Math.floor(Math.random()*4);
 
-canvas.style.transform =
+    // 6回転＋目的位置
 
-`rotate(${angle}deg)`;
+    const stopAngle =
+
+    360*6+
+
+    (360-(target*90)-45);
+
+    currentRotation += stopAngle;
+
+    canvas.style.transition =
+
+    "transform 5s cubic-bezier(.18,.9,.2,1)";
+
+    canvas.style.transform =
+
+    `rotate(${currentRotation}deg)`;
 
     setTimeout(()=>{
-        const prize = prizes[index];
+
+        // 今止まった角度を取得
+
+        const angle =
+
+        ((currentRotation % 360)+360)%360;
+
+        // 矢印(真上)が指す場所を計算
+
+        const pointer =
+
+        (360-angle+45)%360;
+
+        let index =
+
+        Math.floor(pointer/90);
+
+        const prize =
+
+        prizes[index];
 
         result.innerHTML = `
 
-        <h2 style="color:white;">
+        <h2>🎉 当選 🎉</h2>
 
-        🎉 当選 🎉
-
-        </h2>
-
-        <h1 style="
-
-        font-size:52px;
-
-        color:${prize==="10000円"?"gold":"white"};
-
-        text-shadow:
-
-        ${prize==="10000円"
-
-            ?"0 0 10px yellow,0 0 30px gold,0 0 60px orange"
-
-            :"0 0 10px #00ff88"};
-
-        ">
-
-        ${prize}
-
-        </h1>
+        <h1>${prize}</h1>
 
         `;
 
-        if(prize==="10000円"){
+        // 第3回で10000円演出を追加
 
-            document.body.animate([
-
-                {filter:"brightness(1)"},
-
-                {filter:"brightness(2)"},
-
-                {filter:"brightness(1)"}
-
-            ],{
-
-                duration:700
-
-            });
-
-            for(let i=0;i<100;i++){
-
-                const c=document.createElement("div");
-
-                c.innerHTML=Math.random()>0.5?"🎊":"🪙";
-
-                c.style.position="fixed";
-
-                c.style.left=Math.random()*100+"vw";
-
-                c.style.top="-30px";
-
-                c.style.fontSize=
-
-                (18+Math.random()*22)+"px";
-
-                c.style.pointerEvents="none";
-
-                c.style.zIndex="9999";
-
-                document.body.appendChild(c);
-
-                c.animate([
-
-                    {
-
-                        transform:"translateY(0) rotate(0deg)"
-
-                    },
-
-                    {
-
-                        transform:`translateY(120vh) rotate(${720+Math.random()*720}deg)`
-
-                    }
-
-                ],{
-
-                    duration:3000,
-
-                    easing:"ease-in"
-
-                });
-
-                setTimeout(()=>{
-
-                    c.remove();
-
-                },3000);
-
-            }
-
-            result.innerHTML+=`
-
-            <div style="
-
-            color:gold;
-
-            font-size:28px;
-
-            margin-top:15px;
-
-            text-shadow:
-
-            0 0 10px yellow,
-
-            0 0 30px gold;
-
-            ">
-
-            ✨ JACKPOT!! ✨
-
-            </div>
-
-            `;
-
-            if(navigator.vibrate){
-
-                navigator.vibrate([300,100,300,100,600]);
-
-            }
-
-        }
-spinning = false;
     },5000);
 
-};
+});
