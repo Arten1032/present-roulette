@@ -284,7 +284,7 @@ spinButton.onclick=()=>{
             }
 
         }
-
+spinning = false;
     },5000);
 
 };
