@@ -218,7 +218,43 @@ result.innerHTML = `
 
 `;
 
-if(prize === "10000円"){
+if(prize==="10000円"){
+
+    jackpotEffect();
+
+    result.innerHTML=`
+
+    <h2>🎉 JACKPOT 🎉</h2>
+
+    <h1 style="
+
+    color:gold;
+
+    font-size:56px;
+
+    text-shadow:
+
+    0 0 10px yellow,
+
+    0 0 30px gold,
+
+    0 0 60px orange;
+
+    ">
+
+    💰10000円💰
+
+    </h1>
+
+    `;
+
+    if(navigator.vibrate){
+
+        navigator.vibrate([300,100,300,100,600]);
+
+    }
+
+}
 
     result.innerHTML += `
 
@@ -253,3 +289,132 @@ spinning = false;
     },5000);
 
 };
+// =====================
+
+// JACKPOT演出
+
+// =====================
+
+function jackpotEffect(){
+
+    // 金色フラッシュ
+
+    document.body.animate([
+
+        {filter:"brightness(1)"},
+
+        {filter:"brightness(2)"},
+
+        {filter:"brightness(1)"}
+
+    ],{
+
+        duration:700
+
+    });
+
+    // 紙吹雪
+
+    for(let i=0;i<120;i++){
+
+        const confetti=document.createElement("div");
+
+        confetti.innerHTML="🎊";
+
+        confetti.style.position="fixed";
+
+        confetti.style.left=Math.random()*100+"vw";
+
+        confetti.style.top="-30px";
+
+        confetti.style.fontSize=
+
+        (18+Math.random()*20)+"px";
+
+        confetti.style.zIndex="9999";
+
+        confetti.style.pointerEvents="none";
+
+        document.body.appendChild(confetti);
+
+        confetti.animate([
+
+            {
+
+                transform:"translateY(0) rotate(0deg)"
+
+            },
+
+            {
+
+                transform:`translateY(120vh) rotate(${720+Math.random()*720}deg)`
+
+            }
+
+        ],{
+
+            duration:3000,
+
+            easing:"ease-in"
+
+        });
+
+        setTimeout(()=>{
+
+            confetti.remove();
+
+        },3000);
+
+    }
+
+    // 金貨
+
+    for(let i=0;i<50;i++){
+
+        const coin=document.createElement("div");
+
+        coin.innerHTML="🪙";
+
+        coin.style.position="fixed";
+
+        coin.style.left=Math.random()*100+"vw";
+
+        coin.style.top="-40px";
+
+        coin.style.fontSize="34px";
+
+        coin.style.zIndex="9999";
+
+        coin.style.pointerEvents="none";
+
+        document.body.appendChild(coin);
+
+        coin.animate([
+
+            {
+
+                transform:"translateY(0)"
+
+            },
+
+            {
+
+                transform:"translateY(120vh)"
+
+            }
+
+        ],{
+
+            duration:2500
+
+        });
+
+        setTimeout(()=>{
+
+            coin.remove();
+
+        },2500);
+
+    }
+
+}
