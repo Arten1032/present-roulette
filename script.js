@@ -4,7 +4,7 @@
 
 // script.js
 
-// 第3回-①
+// 完成版 第1回
 
 // ==========================================
 
@@ -16,57 +16,57 @@ const spinButton = document.getElementById("spinButton");
 
 const result = document.getElementById("result");
 
-const items = [
+const prizes = [
 
-    { text: "2000円", color: "#2196F3" },
+    "2000円",
 
-    { text: "3000円", color: "#4CAF50" },
+    "3000円",
 
-    { text: "4000円", color: "#F44336" },
+    "4000円",
 
-    { text: "10000円", color: "#FFD700" }
+    "10000円"
 
 ];
 
-const centerX = canvas.width / 2;
+const colors = [
 
-const centerY = canvas.height / 2;
+    "#2196F3",
+
+    "#4CAF50",
+
+    "#F44336",
+
+    "#FFD700"
+
+];
 
 const radius = 190;
 
-let rotation = 0;
+const center = 200;
 
-let spinning = false;
+let angle = 0;
 
-// =======================
+let played = false;
 
-// ルーレット描画
+// =====================
 
-// =======================
+// 描画
 
-function drawWheel(angle = 0){
+// =====================
 
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+function drawWheel(){
+
+    ctx.clearRect(0,0,400,400);
 
     ctx.save();
 
-    ctx.translate(centerX,centerY);
+    ctx.translate(center,center);
 
-    ctx.rotate(angle);
+    ctx.rotate(angle*Math.PI/180);
 
-    const slice =
+    const arc=Math.PI*2/4;
 
-    Math.PI*2/items.length;
-
-    for(let i=0;i<items.length;i++){
-
-        const start =
-
-        i*slice-Math.PI/2;
-
-        const end =
-
-        start+slice;
+    for(let i=0;i<4;i++){
 
         ctx.beginPath();
 
@@ -80,45 +80,33 @@ function drawWheel(angle = 0){
 
             radius,
 
-            start,
+            i*arc-Math.PI/2,
 
-            end
+            (i+1)*arc-Math.PI/2
 
         );
 
         ctx.closePath();
 
-        ctx.fillStyle=
-
-        items[i].color;
+        ctx.fillStyle=colors[i];
 
         ctx.fill();
 
         ctx.save();
 
-        ctx.rotate(
-
-            start+slice/2
-
-        );
+        ctx.rotate(i*arc+arc/2-Math.PI/2);
 
         ctx.textAlign="right";
 
         ctx.fillStyle=
 
-        items[i].text==="10000円"
+        i===3?"#000":"#fff";
 
-        ?"#000"
-
-        :"#fff";
-
-        ctx.font=
-
-        "bold 24px sans-serif";
+        ctx.font="bold 24px sans-serif";
 
         ctx.fillText(
 
-            items[i].text,
+            prizes[i],
 
             radius-25,
 
@@ -136,241 +124,167 @@ function drawWheel(angle = 0){
 
 drawWheel();
 
-// =======================
-
-// 回転
-
-// =======================
-
 spinButton.onclick=()=>{
 
-    if(spinning)return;
+    if(played)return;
 
-    spinning=true;
+    played=true;
 
     spinButton.disabled=true;
 
-    const target =
+    const index=
 
-    Math.floor(
+    Math.floor(Math.random()*4);
 
-        Math.random()*4
-
-    );
-
-    const degree =
+    const stop=
 
     360*6+
 
-    target*90;
+    (270-index*90-45);
 
-    rotation+=degree;
+    angle+=stop;
 
     canvas.style.transition=
 
-    "transform 5s cubic-bezier(.18,.9,.2,1)";
+    "transform 5s cubic-bezier(.2,.9,.2,1)";
 
     canvas.style.transform=
 
-    `rotate(${rotation}deg)`;
+    `rotate(${angle}deg)`;
 
     setTimeout(()=>{
+        const prize = prizes[index];
 
-       const prizes = ["2000円","3000円","4000円","10000円"];
+        result.innerHTML = `
 
-const prize = prizes[target];
+        <h2 style="color:white;">
 
-result.innerHTML = `
+        🎉 当選 🎉
 
-<h2>🎉 当選 🎉</h2>
+        </h2>
 
-<h1>${prize}</h1>
+        <h1 style="
 
-`;
+        font-size:52px;
 
-if(prize === "10000円"){
-
-    jackpotEffect();
-
-    result.innerHTML = `
-
-    <h2 style="color:gold;">🎉 JACKPOT 🎉</h2>
-
-    <h1 style="
-
-        color:gold;
-
-        font-size:56px;
+        color:${prize==="10000円"?"gold":"white"};
 
         text-shadow:
 
-        0 0 10px yellow,
+        ${prize==="10000円"
 
-        0 0 30px gold,
+            ?"0 0 10px yellow,0 0 30px gold,0 0 60px orange"
 
-        0 0 60px orange;
+            :"0 0 10px #00ff88"};
 
-    ">
+        ">
 
-    💰10000円💰
+        ${prize}
 
-    </h1>
+        </h1>
 
-    <div style="
+        `;
 
-        color:gold;
+        if(prize==="10000円"){
 
-        font-size:28px;
+            document.body.animate([
 
-        margin-top:15px;
+                {filter:"brightness(1)"},
 
-    ">
+                {filter:"brightness(2)"},
 
-    ✨おめでとう！！✨
+                {filter:"brightness(1)"}
 
-    </div>
+            ],{
 
-    `;
+                duration:700
 
-    if(navigator.vibrate){
+            });
 
-        navigator.vibrate([300,100,300,100,600]);
+            for(let i=0;i<100;i++){
 
-    }
+                const c=document.createElement("div");
 
-}
+                c.innerHTML=Math.random()>0.5?"🎊":"🪙";
 
-spinning = false;
+                c.style.position="fixed";
+
+                c.style.left=Math.random()*100+"vw";
+
+                c.style.top="-30px";
+
+                c.style.fontSize=
+
+                (18+Math.random()*22)+"px";
+
+                c.style.pointerEvents="none";
+
+                c.style.zIndex="9999";
+
+                document.body.appendChild(c);
+
+                c.animate([
+
+                    {
+
+                        transform:"translateY(0) rotate(0deg)"
+
+                    },
+
+                    {
+
+                        transform:`translateY(120vh) rotate(${720+Math.random()*720}deg)`
+
+                    }
+
+                ],{
+
+                    duration:3000,
+
+                    easing:"ease-in"
+
+                });
+
+                setTimeout(()=>{
+
+                    c.remove();
+
+                },3000);
+
+            }
+
+            result.innerHTML+=`
+
+            <div style="
+
+            color:gold;
+
+            font-size:28px;
+
+            margin-top:15px;
+
+            text-shadow:
+
+            0 0 10px yellow,
+
+            0 0 30px gold;
+
+            ">
+
+            ✨ JACKPOT!! ✨
+
+            </div>
+
+            `;
+
+            if(navigator.vibrate){
+
+                navigator.vibrate([300,100,300,100,600]);
+
+            }
+
+        }
 
     },5000);
 
 };
-// =====================
-
-// JACKPOT演出
-
-// =====================
-
-function jackpotEffect(){
-
-    // 金色フラッシュ
-
-    document.body.animate([
-
-        {filter:"brightness(1)"},
-
-        {filter:"brightness(2)"},
-
-        {filter:"brightness(1)"}
-
-    ],{
-
-        duration:700
-
-    });
-
-    // 紙吹雪
-
-    for(let i=0;i<120;i++){
-
-        const confetti=document.createElement("div");
-
-        confetti.innerHTML="🎊";
-
-        confetti.style.position="fixed";
-
-        confetti.style.left=Math.random()*100+"vw";
-
-        confetti.style.top="-30px";
-
-        confetti.style.fontSize=
-
-        (18+Math.random()*20)+"px";
-
-        confetti.style.zIndex="9999";
-
-        confetti.style.pointerEvents="none";
-
-        document.body.appendChild(confetti);
-
-        confetti.animate([
-
-            {
-
-                transform:"translateY(0) rotate(0deg)"
-
-            },
-
-            {
-
-                transform:`translateY(120vh) rotate(${720+Math.random()*720}deg)`
-
-            }
-
-        ],{
-
-            duration:3000,
-
-            easing:"ease-in"
-
-        });
-
-        setTimeout(()=>{
-
-            confetti.remove();
-
-        },3000);
-
-    }
-
-    // 金貨
-
-    for(let i=0;i<50;i++){
-
-        const coin=document.createElement("div");
-
-        coin.innerHTML="🪙";
-
-        coin.style.position="fixed";
-
-        coin.style.left=Math.random()*100+"vw";
-
-        coin.style.top="-40px";
-
-        coin.style.fontSize="34px";
-
-        coin.style.zIndex="9999";
-
-        coin.style.pointerEvents="none";
-
-        document.body.appendChild(coin);
-
-        coin.animate([
-
-            {
-
-                transform:"translateY(0)"
-
-            },
-
-            {
-
-                transform:"translateY(120vh)"
-
-            }
-
-        ],{
-
-            duration:2500
-
-        });
-
-        setTimeout(()=>{
-
-            coin.remove();
-
-        },2500);
-
-    }
-
-}
