@@ -113,8 +113,29 @@ box-shadow:
 0 0 50px orange;
 
 }
+#wheel{
 
-.item{
+width:320px;
+
+height:320px;
+
+border-radius:50%;
+
+border:10px solid gold;
+
+background:#222;
+
+box-shadow:
+
+0 0 25px gold,
+
+0 0 60px orange;
+
+transition:
+
+transform 5s cubic-bezier(.2,.9,.2,1);
+
+}
 
 position:absolute;
 
