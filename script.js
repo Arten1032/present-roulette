@@ -132,25 +132,15 @@ spinButton.onclick=()=>{
 
     spinButton.disabled=true;
 
-    const index=
+    const index = Math.floor(Math.random()*4);
 
-    Math.floor(Math.random()*4);
+const stop = 360 * 6 + (315 - index * 90);
 
-    const stop=
+angle += stop;
 
-    360*6+
+canvas.style.transform =
 
-    (270-index*90-45);
-
-    angle+=stop;
-
-    canvas.style.transition=
-
-    "transform 5s cubic-bezier(.2,.9,.2,1)";
-
-    canvas.style.transform=
-
-    `rotate(${angle}deg)`;
+`rotate(${angle}deg)`;
 
     setTimeout(()=>{
         const prize = prizes[index];
