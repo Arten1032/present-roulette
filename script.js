@@ -176,39 +176,9 @@ spinButton.onclick=()=>{
 
     setTimeout(()=>{
 
-        const finalAngle = ((rotation % 360) + 360) % 360;
+       const prizes = ["2000円","3000円","4000円","10000円"];
 
-// 矢印は真上(270°)なので補正
-
-const pointer = (360 - finalAngle + 270) % 360;
-
-// 0～89:2000円
-
-// 90～179:3000円
-
-// 180～269:4000円
-
-// 270～359:10000円
-
-let prize = "";
-
-if(pointer < 90){
-
-    prize = "2000円";
-
-}else if(pointer < 180){
-
-    prize = "3000円";
-
-}else if(pointer < 270){
-
-    prize = "4000円";
-
-}else{
-
-    prize = "10000円";
-
-}
+const prize = prizes[target];
 
 result.innerHTML = `
 
@@ -218,27 +188,27 @@ result.innerHTML = `
 
 `;
 
-if(prize==="10000円"){
+if(prize === "10000円"){
 
     jackpotEffect();
 
-    result.innerHTML=`
+    result.innerHTML = `
 
-    <h2>🎉 JACKPOT 🎉</h2>
+    <h2 style="color:gold;">🎉 JACKPOT 🎉</h2>
 
     <h1 style="
 
-    color:gold;
+        color:gold;
 
-    font-size:56px;
+        font-size:56px;
 
-    text-shadow:
+        text-shadow:
 
-    0 0 10px yellow,
+        0 0 10px yellow,
 
-    0 0 30px gold,
+        0 0 30px gold,
 
-    0 0 60px orange;
+        0 0 60px orange;
 
     ">
 
@@ -246,31 +216,17 @@ if(prize==="10000円"){
 
     </h1>
 
-    `;
-
-    if(navigator.vibrate){
-
-        navigator.vibrate([300,100,300,100,600]);
-
-    }
-
-}
-
-    result.innerHTML += `
-
     <div style="
 
-    color:gold;
+        color:gold;
 
-    font-size:34px;
+        font-size:28px;
 
-    margin-top:15px;
-
-    text-shadow:0 0 15px gold;
+        margin-top:15px;
 
     ">
 
-    ✨JACKPOT!!✨
+    ✨おめでとう！！✨
 
     </div>
 
@@ -278,7 +234,7 @@ if(prize==="10000円"){
 
     if(navigator.vibrate){
 
-        navigator.vibrate([300,100,300]);
+        navigator.vibrate([300,100,300,100,600]);
 
     }
 
